@@ -11,5 +11,9 @@ namespace Watcher
         static void Main(string[] args)
         {
         }
+
+        public static void Test2() {
+
+        }
     }
 }
