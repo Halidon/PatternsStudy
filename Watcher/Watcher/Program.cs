@@ -18,13 +18,5 @@ namespace Watcher
             newsAgregator.NewNewsAvailable();
             Console.ReadKey();
         }
-
-        public static void Test() {
-            Console.WriteLine("Hello world");
-        }
-
-        public static void Test2() {
-
-        }
     }
 }
