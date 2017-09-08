@@ -1,18 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Watcher.News;
 
 namespace Watcher.Widgets
 {
-    class TwitterWidget: IWidget
+    class TwitterWidget: IObserver
     {
         private string _twitter;
+
+        public TwitterWidget(ISubject observer)
+        {
+            observer.RegisterObserver(this);
+        }
 
         public void Update(string twitter, string lenta, string tv)
         {
             _twitter = twitter;
+
+            Display();
         }
 
         public void Display() {

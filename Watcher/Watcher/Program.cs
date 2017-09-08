@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Watcher.News;
+using Watcher.Widgets;
 
 namespace Watcher
 {
@@ -13,18 +14,14 @@ namespace Watcher
         {
             var newsAgregator = new NewsAggregator();
 
-            newsAgregator.NewNewsAvailable();
+            var twitterWidjet = new TwitterWidget(newsAgregator);
+            var lentaWidget = new LentaWidget(newsAgregator);
+            var tvWidjet = new TvWidget(newsAgregator); 
+
+            newsAgregator.NotifyObservers();
             Console.WriteLine();
-            newsAgregator.NewNewsAvailable();
+            newsAgregator.NotifyObservers();
             Console.ReadKey();
-        }
-
-        public static void Test() {
-            Console.WriteLine("Hello world");
-        }
-
-        public static void Test2() {
-
-        }
+        } 
     }
 }

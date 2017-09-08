@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Watcher.Widgets
 {
-    public interface IWidget
+    public interface IObserver
     {
         void Update(string twitter, string lenta, string tv);
         void Display();

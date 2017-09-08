@@ -7,19 +7,37 @@ using Watcher.Widgets;
 
 namespace Watcher.News
 {
-    class NewsAggregator
+    class NewsAggregator : ISubject
     {
-        private static TwitterWidget _twitterWidget;
-        private static LentaWidget _lentaWidget;
-        private static TvWidget _tvWidget;
         private static Random _random;
+        private List<IObserver> _observers;
 
         public NewsAggregator() {
-            _twitterWidget = new TwitterWidget();
-            _lentaWidget = new LentaWidget();
-            _tvWidget = new TvWidget();
             _random = new Random();
+            _observers = new List<IObserver>();
         }
+
+        public void RegisterObserver(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void RemoveObserver(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+         
+        public void NotifyObservers()
+        {
+            string twitter = GetTwitterNews();
+            string lenta = GetLentaNews();
+            string tv = GetTvNews();
+
+            foreach (var observer in _observers) {
+                observer.Update(twitter, lenta, tv);
+            }
+        }
+
 
         public string GetTwitterNews() {
             var news = new List<string> {
@@ -51,16 +69,6 @@ namespace Watcher.News
             };
 
             return news[_random.Next(3)];
-        }
-
-        public void NewNewsAvailable() {
-            string twitter = GetTwitterNews();
-            string lenta = GetLentaNews();
-            string tv = GetTvNews();
-
-            _twitterWidget.Update(twitter, lenta, tv);
-            _lentaWidget.Update(twitter, lenta, tv);
-            _tvWidget.Update(twitter, lenta, tv);
         }
     }
 }

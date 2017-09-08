@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Watcher.News;
 
 namespace Watcher.Widgets
 {
-    class LentaWidget:IWidget
+    class LentaWidget:IObserver
     {
-        private string _lenta; 
+        private string _lenta;
+
+        public LentaWidget(ISubject observer)
+        {
+            observer.RegisterObserver(this);
+        }
 
         public void Update(string twitter, string lenta, string tv) {
             _lenta = lenta;
+
+            Display();
         }
 
         public void Display()
